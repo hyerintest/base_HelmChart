@@ -1,0 +1,65 @@
+service:
+  port:
+    name: http
+    l4_protocol: TCP
+    port: 3306
+    targetPort: 3306
+  label: mysql-service-1-signczqiyc
+  name: mysql-service-1-signczqiyc
+  selector: mysql-service-1-signczqiyc
+  type:
+  - ClusterIP
+  - NodePort
+statefulset:
+  name: mysql-service-1-signczqiyc
+  spec:
+    name: mysql-service-1-signczqiyc
+    servicename: mysql-service-1-signczqiyc
+  replicas: -@replicas@-
+  container:
+    name: mysql-service-1-signczqiyc
+    port: 3306
+  volume:
+    name: pvc-mysql-service-1-signczqiyc
+  resource:
+    request:
+      memory: -@requestMemory@-
+      cpu: -@requestCpu@-
+    limits:
+      memory: -@limitsMemory@-
+      cpu: -@limitsCpu@-
+  hpa:
+    name: hpa-mysql-service-1-signczqiyc
+    minReplicas: -@minReplicas@-
+    maxReplicas: -@maxReplicas@-
+    cpu: -@cpuAutoScale@-
+    memory: -@memAutoScale@-
+namespace: -@namespace@-
+mysql:
+  configmap:
+    name: config-mysql-service-1-signczqiyc
+  secret:
+    name: secret-mysql-service-1-signczqiyc
+    username: yoonsla
+    password: "Turaco12!"
+    root_password: "Turaco12!"
+    database: database
+    dbhost: mysql-service-1-signczqiyc
+    port: 3306
+  statefulset:
+    name: mysql-service-1-signczqiyc
+    image:
+      url: registry.turacocloud.com/turaco-common/mysql:8.0.32
+secret:
+  name: 
+  registry:
+    name: regsecret
+    url: -@imageRepoName@-
+    username: -@accessKey@-
+    password: -@secretKey@-
+    email: info@twolinecode.com
+pvc:
+  name: pvc-mysql-service-1-signczqiyc
+  storageClass: tlc-block-sc
+  size: 5Gi
+  accessMode: ReadWriteOnce
